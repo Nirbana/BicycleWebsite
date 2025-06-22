@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funky Wheels Bike Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Bungee+Shade&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-pink: #ff2d95;
-            --lime: #a1ff0a;
+            --lime: #a1ff0a; 
             --sky-blue: #0affe9;
+            --purple: #b400ff;
+            --orange: #ff7b00;
             --dark: #0a0a1f;
         }
 
@@ -17,6 +19,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23ff2d95' filter='drop-shadow(0 0 8px %23ff2d95)'/%3E%3C/svg%3E"), auto;
         }
 
         body {
@@ -24,6 +27,7 @@
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .nav {
@@ -33,6 +37,8 @@
             position: fixed;
             width: 100%;
             z-index: 100;
+            border-bottom: 3px solid var(--neon-pink);
+            animation: borderGlow 2s infinite;
         }
 
         .nav-list {
@@ -46,12 +52,31 @@
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-pink), var(--purple));
+            z-index: -1;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover::before {
+            transform: scaleX(1);
         }
 
         .nav-link:hover {
-            color: var(--neon-pink);
-            text-shadow: 0 0 10px var(--neon-pink);
-            transform: scale(1.1);
+            color: #fff;
+            text-shadow: 0 0 10px #fff;
         }
 
         .hero {
@@ -62,58 +87,83 @@
             text-align: center;
             padding: 2rem;
             background: radial-gradient(circle at center, transparent 0%, var(--dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(45deg,
+                transparent 0%,
+                transparent 10%,
+                rgba(255,45,149,0.1) 10%,
+                rgba(255,45,149,0.1) 20%
+            );
+            animation: backgroundMove 20s linear infinite;
         }
 
         h1 {
-            font-family: 'Righteous', cursive;
+            font-family: 'Bungee Shade', cursive;
             font-size: clamp(3rem, 8vw, 6rem);
-            color: var(--neon-pink);
-            text-shadow: 0 0 20px var(--neon-pink);
-            animation: pulse 2s infinite;
+            background: linear-gradient(45deg, var(--neon-pink), var(--purple), var(--sky-blue));
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255,45,149,0.5);
+            animation: titleGlow 2s infinite;
+            letter-spacing: 4px;
         }
 
         .bike-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            padding: 2rem;
+            padding: 4rem 2rem;
+            position: relative;
         }
 
         .bike-card {
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
             padding: 2rem;
-            border: 2px solid var(--sky-blue);
-            transition: all 0.3s;
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--dark), var(--dark)), 
+                            linear-gradient(45deg, var(--neon-pink), var(--purple), var(--sky-blue));
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .bike-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 30px var(--neon-pink);
+            transform: translateY(-10px) rotateX(10deg);
+            animation: cardFloat 3s infinite;
         }
 
-        .bike-card::before {
+        .bike-card::after {
             content: '';
             position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 300%;
-            height: 300%;
-            background: linear-gradient(45deg, transparent, var(--lime), transparent);
-            animation: rotate 3s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                transparent 20%, 
+                rgba(255,255,255,0.1) 40%,
+                rgba(255,255,255,0.1) 60%,
+                transparent 80%
+            );
+            transform: translateY(100%);
+            transition: transform 0.6s;
         }
 
-        .bike-card:hover::before {
-            opacity: 0.1;
+        .bike-card:hover::after {
+            transform: translateY(-100%);
         }
 
         .btn {
-            background: var(--lime);
+            background: linear-gradient(45deg, var(--lime), var(--sky-blue));
             color: var(--dark);
             border: none;
             padding: 1rem 2rem;
@@ -122,17 +172,20 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
-            background: var(--neon-pink);
-            transform: scale(1.1);
-            box-shadow: 0 0 20px var(--neon-pink);
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 0 30px var(--neon-pink);
+            animation: buttonGlow 1s infinite;
         }
 
         .fan-wall {
             padding: 4rem 2rem;
             background: linear-gradient(45deg, var(--dark), #2a1f3f);
+            position: relative;
         }
 
         .review-card {
@@ -141,17 +194,63 @@
             border-radius: 15px;
             margin: 1rem 0;
             border-left: 4px solid var(--sky-blue);
+            transform: skew(-5deg);
+            transition: all 0.3s;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .review-card:hover {
+            transform: skew(0deg) scale(1.05);
+            border-left-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255,45,149,0.3);
         }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--neon-pink)); }
+            50% { filter: drop-shadow(0 0 40px var(--purple)); }
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% { box-shadow: 0 0 20px var(--neon-pink); }
+            50% { box-shadow: 0 0 40px var(--purple); }
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(-10px) rotateX(10deg); }
+            50% { transform: translateY(-20px) rotateX(15deg); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: var(--neon-pink); }
+            50% { border-color: var(--purple); }
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-50%) translateY(-50%); }
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, var(--neon-pink), var(--purple));
+            border-radius: 50%;
+            filter: blur(5px);
+            opacity: 0.3;
+            animation: floatAround 20s infinite linear;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100vw, 100vh) rotate(360deg); }
         }
 
         @media (max-width: 768px) {
@@ -164,50 +263,56 @@
     </style>
 </head>
 <body>
+    <div class="floating-shapes">
+        <div class="shape" style="width: 50px; height: 50px; left: 10%; top: 20%;"></div>
+        <div class="shape" style="width: 30px; height: 30px; left: 70%; top: 50%;"></div>
+        <div class="shape" style="width: 70px; height: 70px; left: 40%; top: 80%;"></div>
+    </div>
+
     <nav class="nav">
         <ul class="nav-list">
-            <li><a href="#" class="nav-link">Home</a></li>
-            <li><a href="#" class="nav-link">Bikes</a></li>
-            <li><a href="#" class="nav-link">Ride of the Month</a></li>
-            <li><a href="#" class="nav-link">Fan Wall</a></li>
+            <li><a href="#" class="nav-link">Groove Home</a></li>
+            <li><a href="#" class="nav-link">Funky Rides</a></li>
+            <li><a href="#" class="nav-link">Vibe of the Month</a></li>
+            <li><a href="#" class="nav-link">Funk Wall</a></li>
         </ul>
     </nav>
 
     <section class="hero">
         <div>
             <h1>Funky Wheels</h1>
-            <p>Where Bikes Meet Vibes</p>
-            <button class="btn">Start Your Journey</button>
+            <p>Ride the Groove Wave</p>
+            <button class="btn">Get Your Funk On</button>
         </div>
     </section>
 
     <section class="bike-grid">
         <div class="bike-card">
-            <h3>Neon Rider X3000</h3>
-            <p>The future of cycling is here</p>
-            <button class="btn">Learn More</button>
+            <h3>Disco Rider Pro</h3>
+            <p>Light up the streets</p>
+            <button class="btn">Groove More</button>
         </div>
         <div class="bike-card">
-            <h3>Urban Groove Elite</h3>
-            <p>Style meets performance</p>
-            <button class="btn">Learn More</button>
+            <h3>Funk Master Elite</h3>
+            <p>Pure rhythm on wheels</p>
+            <button class="btn">Feel It</button>
         </div>
         <div class="bike-card">
-            <h3>Cosmic Cruiser</h3>
-            <p>Ride among the stars</p>
-            <button class="btn">Learn More</button>
+            <h3>Soul Train X</h3>
+            <p>Smooth like butter</p>
+            <button class="btn">Get Down</button>
         </div>
     </section>
 
     <section class="fan-wall">
-        <h2>Bike Vibes Only</h2>
+        <h2>Funk Factory</h2>
         <div class="review-card">
-            <p>"Best ride of my life! The neon accents make me feel like I'm in the future!"</p>
-            <small>- Alex R.</small>
+            <p>"This bike makes me feel like I'm riding through a disco paradise!"</p>
+            <small>- Groove Master J</small>
         </div>
         <div class="review-card">
-            <p>"These bikes aren't just transportation, they're a lifestyle!"</p>
-            <small>- Sam T.</small>
+            <p>"Never knew cycling could be this funky fresh!"</p>
+            <small>- Dancing Queen P</small>
         </div>
     </section>
 </body>
