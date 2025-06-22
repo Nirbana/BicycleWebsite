@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funky Wheels Bike Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff2d95;
+            --lime: #a1ff0a;
+            --sky-blue: #0affe9;
+            --dark: #0a0a1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a3f);
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.6;
+        }
+
+        .nav {
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--lime);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+            transform: scale(1.1);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at center, transparent 0%, var(--dark) 100%);
+        }
+
+        h1 {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        .bike-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .bike-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid var(--sky-blue);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bike-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 30px var(--neon-pink);
+        }
+
+        .bike-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent, var(--lime), transparent);
+            animation: rotate 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .bike-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .btn {
+            background: var(--lime);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--neon-pink);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .fan-wall {
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, var(--dark), #2a1f3f);
+        }
+
+        .review-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--sky-blue);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-list {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="nav-list">
+            <li><a href="#" class="nav-link">Home</a></li>
+            <li><a href="#" class="nav-link">Bikes</a></li>
+            <li><a href="#" class="nav-link">Ride of the Month</a></li>
+            <li><a href="#" class="nav-link">Fan Wall</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>Funky Wheels</h1>
+            <p>Where Bikes Meet Vibes</p>
+            <button class="btn">Start Your Journey</button>
+        </div>
+    </section>
+
+    <section class="bike-grid">
+        <div class="bike-card">
+            <h3>Neon Rider X3000</h3>
+            <p>The future of cycling is here</p>
+            <button class="btn">Learn More</button>
+        </div>
+        <div class="bike-card">
+            <h3>Urban Groove Elite</h3>
+            <p>Style meets performance</p>
+            <button class="btn">Learn More</button>
+        </div>
+        <div class="bike-card">
+            <h3>Cosmic Cruiser</h3>
+            <p>Ride among the stars</p>
+            <button class="btn">Learn More</button>
+        </div>
+    </section>
+
+    <section class="fan-wall">
+        <h2>Bike Vibes Only</h2>
+        <div class="review-card">
+            <p>"Best ride of my life! The neon accents make me feel like I'm in the future!"</p>
+            <small>- Alex R.</small>
+        </div>
+        <div class="review-card">
+            <p>"These bikes aren't just transportation, they're a lifestyle!"</p>
+            <small>- Sam T.</small>
+        </div>
+    </section>
+</body>
+</html>
