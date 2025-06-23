@@ -20,6 +20,32 @@
             box-sizing: border-box;
         }
 
+        .header-container {
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            text-align: right;
+        }
+
+        .login-button {
+            background: linear-gradient(45deg, var(--neon-pink), var(--lime));
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 45, 149, 0.3);
+            display: inline-block;
+        }
+
+        .login-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.5);
+        }
+
         body {
             background: linear-gradient(135deg, var(--dark), #1a1a3f);
             color: #fff;
@@ -120,10 +146,13 @@
             color: var(--neon-pink);
             text-shadow: 0 0 20px var(--neon-pink);
         }
-
     </style>
 </head>
 <body>
+    <div class="header-container">
+        <a href="#" class="login-button">Login</a>
+    </div>
+    
     <h1 class="section-title">Funky Junkyard Treasures</h1>
     
     <div class="junkyard-gallery">
